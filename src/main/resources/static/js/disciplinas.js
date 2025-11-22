@@ -664,9 +664,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         linha.dataset.alunoId = matricula.alunos.id;
         linha.dataset.matriculaId = matricula.id_matricula;
-        linha.dataset.nomeTurma = matricula.grade_disciplinas.turmas.nome;
-        linha.dataset.professor = matricula.grade_disciplinas.funcionarios.nome;
-        linha.dataset.horario = matricula.grade_disciplinas.horario;
+        linha.dataset.nomeTurma = matricula.gradeDisciplinas.turmas.nome;
+        linha.dataset.professor = matricula.gradeDisciplinas.funcionarios.nome;
+        linha.dataset.horario = matricula.gradeDisciplinas.horario;
 
         // 7. Adiciona os dados do JSON em células <td>
         linha.innerHTML = `

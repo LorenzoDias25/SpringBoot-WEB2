@@ -1,52 +1,24 @@
-package com.example.Escola_WEB2.Model;
+package com.example.Escola_WEB2.DTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "endereco")
-public class Endereco {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco")
-    private Integer id;
+public class EnderecoUpdate {
 
     private String cep;
-
     private String rua;
-
     private int numero;
-
     private String bairro;
-
     private String cidade;
-
     private String complemento;
 
-    public Endereco() {
+    public EnderecoUpdate() {
     }
 
-    public Endereco(Integer id, String cep, String rua, int numero, String bairro, String cidade, String complemento) {
-        this.id = id;
+    public EnderecoUpdate(String cep, String rua, int numero, String bairro, String cidade, String complemento) {
         this.cep = cep;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.cidade = cidade;
         this.complemento = complemento;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCep() {

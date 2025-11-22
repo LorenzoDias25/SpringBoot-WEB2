@@ -20,7 +20,7 @@ public class Funcionarios {
     private Integer id_funcionario;
 
     @Column(name = "codigo_uq", unique = true)
-    private String codigo_uq;
+    private String codigo;
 
     private String nome;
 
@@ -43,9 +43,9 @@ public class Funcionarios {
     public Funcionarios() {
     }
 
-    public Funcionarios(Integer id_funcionario, String codigo_uq, String nome, String cpf, String email, int celular, LocalDate data_nascimento, Grade_cargos cargo, Endereco endereco) {
+    public Funcionarios(Integer id_funcionario, String codigo, String nome, String cpf, String email, int celular, LocalDate data_nascimento, Grade_cargos cargo, Endereco endereco) {
         this.id_funcionario = id_funcionario;
-        this.codigo_uq = codigo_uq;
+        this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -63,12 +63,12 @@ public class Funcionarios {
         this.id_funcionario = id_funcionario;
     }
 
-    public String getCodigo_uq() {
-        return codigo_uq;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodigo_uq(String codigo_uq) {
-        this.codigo_uq = codigo_uq;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {

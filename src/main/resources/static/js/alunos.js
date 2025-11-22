@@ -275,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       // --- MODO CADASTRO ---
       modalAlunoTitulo.textContent = "Cadastrar Novo Aluno";
-
       // Limpa dados pessoais
       alunoNome.value = "";
       alunoCPF.value = "";

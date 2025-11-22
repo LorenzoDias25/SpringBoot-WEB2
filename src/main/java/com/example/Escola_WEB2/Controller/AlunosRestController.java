@@ -31,6 +31,11 @@ public class AlunosRestController {
         return alunosRepository.findAllByOrderByNomeAsc();
     }
 
+    @GetMapping("/por-matricula/{matricula}")
+    public Alunos getByMatricula(@PathVariable String matricula) {
+        return alunosRepository.findByMatricula(matricula);
+    }
+
     @GetMapping("/pesquisar")
     public List<Alunos> pesquisarAlunos(
             @RequestParam(value = "termo", defaultValue = "") String termo,

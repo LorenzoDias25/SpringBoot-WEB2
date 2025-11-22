@@ -61,8 +61,12 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="input-group search-bar-custom mb-3">
-            <input type="text" class="form-control" placeholder="TextField" />
-            <button class="btn" type="button">
+            <input type="text" class="form-control" placeholder="TextField" id="inputPesquisa">
+            <select id="selectStatus" class="form-control" style="display: none">
+              <option value="true">Ativado</option>
+              <option value="false">Desativado</option>
+            </select>
+            <button class="btn" type="button" id="botaoPesquisa">
               <i class="bi bi-search"></i>
             </button>
           </div>
@@ -71,13 +75,8 @@
             <div class="col-auto">Pesquisar por:</div>
             <div class="col-auto">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioNome" value="nome" checked />
-                <label class="form-check-label" for="radioNome">Nome</label>
-              </div>
-            </div>
-            <div class="col-auto">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioEmail" value="email" />
+                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioEmail" value="email"
+                  checked />
                 <label class="form-check-label" for="radioEmail">email</label>
               </div>
             </div>
@@ -85,6 +84,18 @@
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="pesquisarPor" id="radioCodigo" value="codigo" />
                 <label class="form-check-label" for="radioCodigo">Codigo</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioConta" value="conta" />
+                <label class="form-check-label" for="radioConta">Conta</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioStatus" value="status" />
+                <label class="form-check-label" for="radioStatus">Status</label>
               </div>
             </div>
           </div>
@@ -112,28 +123,11 @@
                   <th scope="col">Nome</th>
                   <th scope="col">Codigo</th>
                   <th scope="col">Email</th>
-                  <th scope="col">Nascimento</th>
-                  <th scope="col">Cargo</th>
+                  <th scope="col">Conta</th>
                   <th scope="col">Status</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr data-usuario-id="123" style="cursor: pointer">
-                  <td>João da Silva</td>
-                  <td>12345</td>
-                  <td>joao@email.com</td>
-                  <td>10/05/1990</td>
-                  <td>Aluno</td>
-                  <td>Ativo</td>
-                </tr>
-                <tr>
-                  <td>Maria Oliveira</td>
-                  <td>54321</td>
-                  <td>maria@email.com</td>
-                  <td>15/08/1992</td>
-                  <td>Aluno</td>
-                  <td>Ativo</td>
-                </tr>
+              <tbody id="tabelaContasBody">
               </tbody>
             </table>
           </div>
@@ -153,27 +147,45 @@
             <h3 class="text-center" style="font-size: 2rem">Endereço</h3>
 
             <form id="formEndereco">
-              <div class="mb-3">
-                <input type="text" class="form-control address-field" id="inputRua" placeholder="Rua" readonly />
+
+              <div class="form-floating my-3">
+                <input type="text" class="form-control address-field" id="editRua" placeholder="Rua" readonly>
+                <label for="editRua" style="color: #555; font-size: 1.0rem;">Rua</label>
+                <!-- <input type="text" class="form-control address-field" id="editRua" placeholder="Rua" readonly /> -->
               </div>
-              <div class="mb-3">
-                <input type="text" class="form-control address-field" id="inputBairro" placeholder="Bairro" readonly />
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control address-field" id="editBairro" placeholder="Bairro" readonly>
+                <label for="editBairro" style="color: #555; font-size: 1.0rem;">Bairro</label>
+                <!-- <input type="text" class="form-control address-field" id="editBairro" placeholder="Bairro" readonly /> -->
               </div>
-              <div class="mb-3">
-                <input type="text" class="form-control address-field" id="inputCidade" placeholder="Cidade" readonly />
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control address-field" id="editCidade" placeholder="Cidade" readonly>
+                <label for="editCidade" style="color: #555; font-size: 1.0rem;">Cidade</label>
+                <!-- <input type="text" class="form-control address-field" id="editCidade" placeholder="Cidade" readonly /> -->
               </div>
               <div class="row mb-3">
                 <div class="col-6">
-                  <input type="text" class="form-control address-field" id="inputNumero" placeholder="Numero"
-                    readonly />
+                  <div class="form-floating ">
+                    <input type="text" class="form-control address-field" id="editNumero" placeholder="Numero" readonly>
+                    <label for="editNumero" style="color: #555; font-size: 1.0rem;">Numero</label>
+                    <!-- <input type="number" class="form-control address-field" id="editNumero" placeholder="Numero"
+                      readonly /> -->
+                  </div>
                 </div>
                 <div class="col-6">
-                  <input type="text" class="form-control address-field" id="inputCEP" placeholder="CEP" readonly />
+                  <div class="form-floating">
+                    <input type="text" class="form-control address-field" id="editCEP" placeholder="CEP" readonly>
+                    <label for="editCEP" style="color: #555; font-size: 1.0rem;">CEP</label>
+                    <!-- <input type="text" class="form-control address-field" id="editCEP" placeholder="CEP" readonly /> -->
+                  </div>
                 </div>
               </div>
-              <div class="mb-3">
-                <input type="text" class="form-control address-field" id="inputComplemento" placeholder="Complemento"
-                  readonly />
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control address-field" id="editComplemento" placeholder="Complemento"
+                  readonly>
+                <label for="editComplemento" style="color: #555; font-size: 1.0rem;">Complemento</label>
+                <!-- <input type="text" class="form-control address-field" id="editComplemento" placeholder="Complemento"
+                  readonly /> -->
               </div>
 
               <button type="button" class="btn btn-dark" id="btnEditarEndereco">
@@ -183,6 +195,7 @@
               <button type="button" class="btn btn-primary mt-2 d-none" id="btnSalvarEndereco">
                 Salvar
               </button>
+              <div id="alertaEndereco" class="alert mt-3 d-none" style="text-align: center;"></div>
             </form>
           </div>
         </div>
@@ -212,9 +225,7 @@
           <button type="button" class="btn btn-custom w-100" id="btnConfirmarDesativacao">
             Confirmar
           </button>
-
-          <div id="alertaDesativar" class="alert mt-3 d-none"></div>
-
+          <div id="alertaDesativar" class="alert mt-3 d-none" style="text-align: center;"></div>
         </div>
       </div>
     </div>
@@ -226,7 +237,7 @@
 
         <div class="modal-body" style="padding: 2rem;">
 
-          <h3 class="text-center mb-4" style="font-size: 2.5rem;">Gerenciar conta</h3>
+          <h3 class="text-center mb-4" style="font-size: 2.5rem;" id="modalGerenciarContaTitulo">Gerenciar conta</h3>
 
           <div class="row">
             <div class="col-md-6">
@@ -242,11 +253,11 @@
             <div class="col-md-6">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="editCargo" placeholder="Cargo">
-                <label for="editCargo" style="color: #555;">Cargo</label>
+                <label for="editCargo" style="color: #555;">Conta</label>
               </div>
               <div class="form-floating mb-3">
                 <input type="password" class="form-control" id="editSenha" placeholder="senha">
-                <label for="editSenha" style="color: #555;">senha (deixe em branco para não alterar)</label>
+                <label for="editSenha" style="color: #555;">Senha</label>
               </div>
             </div>
           </div>

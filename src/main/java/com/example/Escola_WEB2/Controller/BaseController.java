@@ -53,6 +53,11 @@ public class BaseController {
         return "turmas";
     }
 
+        @GetMapping("/contas")
+    public String ContasPage() {
+        return "contas";
+    }
+    
     public BaseController(EventosRepository eventosRepository) {
         this.eventosRepository = eventosRepository;
     }

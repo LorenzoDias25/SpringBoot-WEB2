@@ -15,6 +15,8 @@ public interface AlunosRepository extends JpaRepository<Alunos, Integer> {
     List<Alunos> findByMatriculaContainingIgnoreCase(String matricula, Sort sort);
 
     Optional<Alunos> findTopByOrderByMatriculaDesc();
-    
+
     List<Alunos> findAllByOrderByNomeAsc();
+
+    Alunos findByMatricula(String matricula);
 }

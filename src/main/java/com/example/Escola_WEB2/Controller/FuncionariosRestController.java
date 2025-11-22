@@ -19,6 +19,11 @@ public class FuncionariosRestController {
         return repository.findByCargoNomeContainingIgnoreCase(cargo);
     }
 
+    @GetMapping("/por-codigo/{codigo}")
+    public Funcionarios getByCodigo(@PathVariable String codigo) {
+        return repository.findByCodigo(codigo);
+    }
+
     public FuncionariosRestController(FuncionariosRepository repository) {
         this.repository = repository;
     }

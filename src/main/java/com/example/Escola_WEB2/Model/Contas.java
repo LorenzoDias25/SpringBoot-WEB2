@@ -24,7 +24,7 @@ public class Contas {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_usuario")
-    private Tipo_usuario tipo_usuario;
+    private Tipo_usuario tipoUsuario;
 
     private String email;
 
@@ -35,10 +35,10 @@ public class Contas {
     public Contas() {
     }
 
-    public Contas(Integer id_conta, String codigo, Tipo_usuario tipo_usuario, String email, String senha, boolean ativo) {
+    public Contas(Integer id_conta, String codigo, Tipo_usuario tipoUsuario, String email, String senha, boolean ativo) {
         this.id_conta = id_conta;
         this.codigo = codigo;
-        this.tipo_usuario = tipo_usuario;
+        this.tipoUsuario = tipoUsuario;
         this.email = email;
         this.senha = senha;
         this.ativo = ativo;
@@ -60,12 +60,12 @@ public class Contas {
         this.codigo = codigo;
     }
 
-    public Tipo_usuario getTipo_usuario() {
-        return tipo_usuario;
+    public Tipo_usuario getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setTipo_usuario(Tipo_usuario tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
+    public void setTipoUsuario(Tipo_usuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getEmail() {
@@ -84,7 +84,7 @@ public class Contas {
         this.senha = senha;
     }
 
-    public boolean getAtivo() {
+    public boolean isAtivo() {
         return ativo;
     }
 

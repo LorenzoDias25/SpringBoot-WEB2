@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Contas</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link th:href="@{/css/contas.css}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container mt-3 mb-3">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg content-block navbar-custom">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{index}"><img th:src="@{/assets/logo.png}" style="height: 75px; width: auto;"
+            alt="Logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{index}">Eventos</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                Secretaria
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{alunos}">Alunos</a></li>
+                <li><a class="dropdown-item" th:href="@{disciplinas}">Disciplinas</a></li>
+                <li><a class="dropdown-item" th:href="@{turmas}">Turmas</a></li>
+                <li><a class="dropdown-item" th:href="@{eventos}">Eventos</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                Adm
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{contasl}">Contas</a></li>
+                <li><a class="dropdown-item" th:href="@{funcionarios}">Funcionários</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{perfil}">Perfil</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="content-block">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="input-group search-bar-custom mb-3">
+            <input type="text" class="form-control" placeholder="TextField" />
+            <button class="btn" type="button">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+
+          <div class="row filter-group align-items-center">
+            <div class="col-auto">Pesquisar por:</div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioNome" value="nome" checked />
+                <label class="form-check-label" for="radioNome">Nome</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioEmail" value="email" />
+                <label class="form-check-label" for="radioEmail">email</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pesquisarPor" id="radioCodigo" value="codigo" />
+                <label class="form-check-label" for="radioCodigo">Codigo</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row filter-group align-items-center mb-3">
+            <div class="col-auto">Ordenar por:</div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ordenarPor" id="radioAZ" value="az" checked />
+                <label class="form-check-label" for="radioAZ">A-Z</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ordenarPor" id="radioZA" value="za" />
+                <label class="form-check-label" for="radioZA">Z-A</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-scrollable table-responsive">
+            <table class="table table-custom text-center table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nascimento</th>
+                  <th scope="col">Cargo</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-usuario-id="123" style="cursor: pointer">
+                  <td>João da Silva</td>
+                  <td>12345</td>
+                  <td>joao@email.com</td>
+                  <td>10/05/1990</td>
+                  <td>Aluno</td>
+                  <td>Ativo</td>
+                </tr>
+                <tr>
+                  <td>Maria Oliveira</td>
+                  <td>54321</td>
+                  <td>maria@email.com</td>
+                  <td>15/08/1992</td>
+                  <td>Aluno</td>
+                  <td>Ativo</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex justify-content-between action-buttons">
+            <button class="btn btn-custom" id="btnCadastrarTabela" data-bs-toggle="modal"
+              data-bs-target="#modalEditarConta">Cadastrar</button>
+            <button class="btn btn-custom" id="btnEditarTabela" data-bs-toggle="modal"
+              data-bs-target="#modalEditarConta" disabled>Editar</button>
+            <button class="btn btn-custom" id="btnDesativarTabela" data-bs-toggle="modal"
+              data-bs-target="#modalDesativar" disabled>Desativar</button>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mt-4 mt-lg-0">
+          <div class="address-form-box">
+            <h3 class="text-center" style="font-size: 2rem">Endereço</h3>
+
+            <form id="formEndereco">
+              <div class="mb-3">
+                <input type="text" class="form-control address-field" id="inputRua" placeholder="Rua" readonly />
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control address-field" id="inputBairro" placeholder="Bairro" readonly />
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control address-field" id="inputCidade" placeholder="Cidade" readonly />
+              </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <input type="text" class="form-control address-field" id="inputNumero" placeholder="Numero"
+                    readonly />
+                </div>
+                <div class="col-6">
+                  <input type="text" class="form-control address-field" id="inputCEP" placeholder="CEP" readonly />
+                </div>
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control address-field" id="inputComplemento" placeholder="Complemento"
+                  readonly />
+              </div>
+
+              <button type="button" class="btn btn-dark" id="btnEditarEndereco">
+                Editar
+              </button>
+
+              <button type="button" class="btn btn-primary mt-2 d-none" id="btnSalvarEndereco">
+                Salvar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="modal fade" id="modalDesativar" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content"
+        style="background-color: var(--cor-bloco-principal); border: 3px solid var(--cor-texto-borda); border-radius: 15px;">
+
+        <div class="modal-body text-center" style="padding: 2rem;">
+
+          <h5 class_style="font-size: 1.8rem;" id="desativarMensagem">
+            O usuário .... será desativado
+          </h5>
+
+          <p class="mt-2" style="font-size: 1.4rem;" id="desativarInstrucao">
+            Digite "Codigo" para confirmar
+          </p>
+
+          <div class="form-floating my-3">
+            <input type="text" class="form-control" id="inputConfirmarCodigo" placeholder="TextField">
+            <label for="inputConfirmarCodigo" style="color: #555; font-size: 1.0rem;">Código</label>
+          </div>
+
+          <button type="button" class="btn btn-custom w-100" id="btnConfirmarDesativacao">
+            Confirmar
+          </button>
+
+          <div id="alertaDesativar" class="alert mt-3 d-none"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalEditarConta" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content"
+        style="background-color: var(--cor-bloco-principal); border: 3px solid var(--cor-texto-borda); border-radius: 15px;">
+
+        <div class="modal-body" style="padding: 2rem;">
+
+          <h3 class="text-center mb-4" style="font-size: 2.5rem;">Gerenciar conta</h3>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="editCodigo" placeholder="Código" disabled>
+                <label for="editCodigo" style="color: #555;">Código</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="editEmail" placeholder="email">
+                <label for="editEmail" style="color: #555;">email</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="editCargo" placeholder="Cargo">
+                <label for="editCargo" style="color: #555;">Cargo</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="editSenha" placeholder="senha">
+                <label for="editSenha" style="color: #555;">senha (deixe em branco para não alterar)</label>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-custom w-100 mt-3" id="btnSalvarEdicaoConta">
+            Confirmar
+          </button>
+          <div id="alertaEditar" class="alert mt-3 d-none" style="text-align: center;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/js/contas.js}" defer></script>
+</body>
+
+</html>

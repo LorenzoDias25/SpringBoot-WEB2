@@ -17,7 +17,7 @@ public class Funcionarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_funcionario")
-    private Integer id_funcionario;
+    private Integer id;
 
     @Column(name = "codigo_uq", unique = true)
     private String codigo;
@@ -43,8 +43,8 @@ public class Funcionarios {
     public Funcionarios() {
     }
 
-    public Funcionarios(Integer id_funcionario, String codigo, String nome, String cpf, String email, int celular, LocalDate data_nascimento, Grade_cargos cargo, Endereco endereco) {
-        this.id_funcionario = id_funcionario;
+    public Funcionarios(Integer id, String codigo, String nome, String cpf, String email, int celular, LocalDate data_nascimento, Grade_cargos cargo, Endereco endereco) {
+        this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
@@ -55,12 +55,12 @@ public class Funcionarios {
         this.endereco = endereco;
     }
 
-    public Integer getId_funcionario() {
-        return id_funcionario;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_funcionario(Integer id_funcionario) {
-        this.id_funcionario = id_funcionario;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCodigo() {

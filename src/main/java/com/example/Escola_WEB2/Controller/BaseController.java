@@ -53,11 +53,16 @@ public class BaseController {
         return "turmas";
     }
 
-        @GetMapping("/contas")
+    @GetMapping("/contas")
     public String ContasPage() {
         return "contas";
     }
-    
+
+    @GetMapping("/funcionarios")
+    public String FuncionariosPage() {
+        return "funcionarios";
+    }
+
     public BaseController(EventosRepository eventosRepository) {
         this.eventosRepository = eventosRepository;
     }

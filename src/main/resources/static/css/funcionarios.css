@@ -164,10 +164,27 @@ body {
   width: 100%;
 }
 
+/* Caixas de Informação (Direita) */
+.info-box {
+  border: 3px solid var(--cor-texto-borda);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+/* Scroll das tabelas menores */
+.info-box .table-scrollable {
+  max-height: 250px; /* Altura menor para as tabelas secundárias */
+}
+.info-box .btn-custom {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
 /* ----- Estilos dos Modais (Campos de texto) ----- */
 #modalEditarFuncionario .form-control,
 #modalCadastrarFuncionario .form-control,
-#modalDesativar .form-control {
+#modalDesativar .form-control,
+#modalEditarBeneficios .form-contro {
   font-family: "Patrick Hand", cursive;
   font-weight: bold;
   font-size: 1.5rem;
@@ -177,7 +194,8 @@ body {
 }
 #modalEditarFuncionario .form-floating > .form-control,
 #modalCadastrarFuncionario .form-floating > .form-control,
-#modalDesativar .form-floating > .form-control {
+#modalDesativar .form-floating > .form-control,
+#modalEditarBeneficios .form-floating > .form-control {
   padding-top: 2rem;
   padding-bottom: 0.75rem;
 }
@@ -192,13 +210,18 @@ body {
 #modalDesativar .form-floating > .form-control:not(:placeholder-shown) ~ label {
   transform: scale(0.85) translateY(-0.8rem) translateX(0.15rem);
 }
+#modalEditarBeneficios .form-floating > .form-control:not(:placeholder-shown) ~ label {
+  transform: scale(0.85) translateY(-0.8rem) translateX(0.15rem);
+}
 #modalEditarFuncionario .form-floating > label,
 #modalCadastrarFuncionario .form-floating > label,
-#modalDesativar .form-floating > label {
+#modalDesativar .form-floating > label,
+#modalEditarBeneficios .form-floating > label {
   padding-top: 0.8rem;
 }
 #modalEditarFuncionario .form-control:disabled,
 #modalCadastrarFuncionario .form-control:disabled,
-#modalDesativar .form-control:disabled {
+#modalDesativar .form-control:disabled,
+#modalEditarBeneficios .form-control:disabled {
   background-color: #f0f0f0;
 }

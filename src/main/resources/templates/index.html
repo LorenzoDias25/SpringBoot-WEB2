@@ -49,7 +49,7 @@
                                     Adm
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{contasl}">Contas</a></li>
+                                    <li><a class="dropdown-item" th:href="@{contas}">Contas</a></li>
                                     <li><a class="dropdown-item" th:href="@{funcionarios}">Funcionários</a></li>
                                 </ul>
                             </li>
@@ -65,7 +65,7 @@
                 <div class="row align-items-center text-center">
                     <div class="col-md-6 mb-3 mb-md-0">
                         <div class="input-group search-bar-custom">
-                            <input type="text" class="form-control" placeholder="TextField">
+                            <input type="text" class="form-control" placeholder="Pesquisar">
                             <button class="btn" type="button">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -90,12 +90,12 @@
             </div>
 
             <main class="content-block" style="padding: 0; position: relative; overflow: hidden; display: block; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalInfoEvento" 
-                  th:data-nome="${principal.nome}" th:data-participantes="${principal.participantes}" th:data-inicio="${#temporals.format(principal.data_inicio, 'dd/MM/yyyy')}"
-                  th:data-fim="${#temporals.format(principal.data_fim, 'dd/MM/yyyy')}" th:data-local="${principal.tipo_evento.locais.nome}">
+                  th:data-nome="${principal.nome}" th:data-participantes="${principal.participantes}" th:data-inicio="${#temporals.format(principal.dataInicio, 'dd/MM/yyyy')}"
+                  th:data-fim="${#temporals.format(principal.dataFim, 'dd/MM/yyyy')}" th:data-local="${principal.tipoEvento.locais.nome}">
                 <img th:src="@{|/assets/${principal.caminho}|}" width="100%" height="auto" style="display: block;">
 
                 <div class="main-event-info">
-                    <p th:text="${#temporals.format(principal.data_inicio, 'dd/MM/yyyy')}">Data Evento</p>
+                    <p th:text="${#temporals.format(principal.dataInicio, 'dd/MM/yyyy')}">Data Evento</p>
                     <h3 th:text="${principal.nome}">Nome evento</h3>
                 </div>
 
@@ -106,12 +106,12 @@
 
                     <div class="col-lg-4 col-md-6" th:each="evento : ${eventosList}">
                         <div class="event-card" data-bs-toggle="modal" data-bs-target="#modalInfoEvento" 
-                             th:data-nome="${evento.nome}" th:data-participantes="${evento.participantes}" th:data-inicio="${#temporals.format(evento.data_inicio, 'dd/MM/yyyy')}"
-                             th:data-fim="${#temporals.format(evento.data_fim, 'dd/MM/yyyy')}" th:data-local="${evento.tipo_evento.locais.nome}"style="cursor: pointer;">
+                             th:data-nome="${evento.nome}" th:data-participantes="${evento.participantes}" th:data-inicio="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy')}"
+                             th:data-fim="${#temporals.format(evento.dataFim, 'dd/MM/yyyy')}" th:data-local="${evento.tipoEvento.locais.nome}"style="cursor: pointer;">
 
                             <div class="placeholder-box"><img class="placeholder-box" th:alt="${evento.nome}" th:src="@{|/assets/${evento.caminho}|}"></div>
                             <div class="card-body">
-                                <p class="card-text mb-0" th:text="${#temporals.format(evento.data_inicio, 'dd/MM/yyyy')}">Data inicio</p>
+                                <p class="card-text mb-0" th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy')}">Data inicio</p>
                                 <h3 class="card-title" th:text="${evento.nome}">Titulo do evento</h3>
                             </div>
                         </div>

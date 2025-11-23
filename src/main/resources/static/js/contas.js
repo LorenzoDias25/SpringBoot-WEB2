@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       if (contaSelecionada.enderecoId != 0) {
-        await buscarEnderco(contaSelecionada.enderecoId);
+        await buscarEndereco(contaSelecionada.enderecoId);
         alertaEndereco.classList.add("d-none");
         btnEditarEndereco.disabled = false;
       } else {
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
       campo.readOnly = true;
       campo.style.backgroundColor = "#EEEEEE";
     });
-    let sucesso = await salvarEvento(dados);
+    let sucesso = await salvarEndereco(dados);
 
     if (sucesso === false) {
       mostrarAlerta(
@@ -464,7 +464,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  async function buscarEnderco(id) {
+  async function buscarEndereco(id) {
     try {
       const response = await fetch(`api/endereco/por-id/${id}`);
 
@@ -483,7 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  async function salvarEvento(dados) {
+  async function salvarEndereco(dados) {
     try {
       const response = await fetch(`/api/endereco/salvar/${dados.id}`, {
         method: "PUT", // O método HTTP para atualizar
@@ -494,7 +494,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (response.ok) {
-        buscarEnderco(contaSelecionada.enderecoId);
+        buscarEndereco(contaSelecionada.enderecoId);
         return true;
       } else {
         return false;
@@ -627,7 +627,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function renderizarTabelaContas(contas) {
     tabelaContasBody.innerHTML = "";
 
-    // 5. Itera sobre cada aluno na lista
+    
     for (const conta of contas) {
       const linha = document.createElement("tr");
 

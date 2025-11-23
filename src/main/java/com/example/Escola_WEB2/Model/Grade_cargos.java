@@ -14,7 +14,7 @@ public class Grade_cargos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cargo")
-    private Integer id_cargo;
+    private Integer id;
 
     private String nome;
 
@@ -27,20 +27,20 @@ public class Grade_cargos {
     public Grade_cargos() {
     }
 
-    public Grade_cargos(Integer id_cargo, String nome, Double hora_trabalho, Double salario_base, String beneficios) {
-        this.id_cargo = id_cargo;
+    public Grade_cargos(Integer id, String nome, Double hora_trabalho, Double salario_base, String beneficios) {
+        this.id = id;
         this.nome = nome;
         this.hora_trabalho = hora_trabalho;
         this.salario_base = salario_base;
         this.beneficios = beneficios;
     }
 
-    public Integer getId_cargo() {
-        return id_cargo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_cargo(Integer id_cargo) {
-        this.id_cargo = id_cargo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {

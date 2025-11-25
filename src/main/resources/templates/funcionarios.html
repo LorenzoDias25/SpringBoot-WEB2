@@ -207,10 +207,6 @@
                   </tbody>
                 </table>
               </div>
-              <button class="btn btn-custom" id="btnEditarBeneficios  " data-bs-toggle="modal"
-                data-bs-target="#modalEditarBeneficios" disabled>
-                Editar
-              </button>
             </div>
             <!-- Fim Caixa Histórico -->
 
@@ -230,6 +226,7 @@
               <button type="button" class="btn btn-dark" id="btnEditarRegistro">Editar</button>
 
               <button type="button" class="btn btn-primary mt-2 d-none" id="btnSalvarRegistro">Salvar</button>
+              <div id="alertaRegistro" class="alert mt-3 d-none" style="text-align: center;"></div>
             </div>
           </div>
 
@@ -262,7 +259,7 @@
         style="background-color: var(--cor-bloco-principal); border: 3px solid var(--cor-texto-borda); border-radius: 15px;">
         <div class="modal-body" style="padding: 2rem;">
           <h3 class="text-center mb-4" style="font-size: 2.5rem;">Cadastrar Novo Funcionário</h3>
-          <div class="row">
+          <div class="row justify-content-center">
             <div class="col-md-6">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="cadNome" placeholder="Nome Completo">
@@ -291,9 +288,14 @@
                 <label for="cadCargo" style="color: #555;">Cargo</label>
               </div>
             </div>
+            <div class="form-floating mb-3  w-50" style="padding-left: 5px;">
+              <input type="text" class="form-control" id="cadNascimento" placeholder="Nascimento">
+              <label for="cadNascimento" style="color: #555;">Nascimento</label>
+            </div>
+            <div></div>
+            <button type="button" class="btn btn-custom w-50" id="btnSalvarCadastro">Confirmar Cadastro</button>
+            <div id="alertaCadastrar" class="alert mt-3 d-none" style="text-align: center;"></div>
           </div>
-          <button type="button" class="btn btn-custom w-100 mt-3" id="btnSalvarCadastro">Confirmar Cadastro</button>
-          <div id="alertaCadastrar" class="alert mt-3 d-none" style="text-align: center;"></div>
         </div>
       </div>
     </div>
@@ -305,7 +307,7 @@
         style="background-color: var(--cor-bloco-principal); border: 3px solid var(--cor-texto-borda); border-radius: 15px;">
         <div class="modal-body" style="padding: 2rem;">
           <h3 class="text-center mb-4" style="font-size: 2.5rem;">Editar Funcionário</h3>
-          <div class="row">
+          <div class="row justify-content-center">
             <div class="col-md-6">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="editNome" placeholder="Nome Completo">
@@ -334,9 +336,14 @@
                 <label for="editCargo" style="color: #555;">Cargo</label>
               </div>
             </div>
+            <div class="form-floating mb-3  w-50" style="padding-left: 5px;">
+              <input type="text" class="form-control" id="editNascimento" placeholder="Nascimento">
+              <label for="editNascimento" style="color: #555;">Nascimento</label>
+            </div>
+            <div></div>
+            <button type="button" class="btn btn-custom w-50" id="btnSalvarEdicao">Confirmar Alterações</button>
+            <div id="alertaEditar" class="alert mt-3 d-none" style="text-align: center;"></div>
           </div>
-          <button type="button" class="btn btn-custom w-100 mt-3" id="btnSalvarEdicao">Confirmar Alterações</button>
-          <div id="alertaEditar" class="alert mt-3 d-none" style="text-align: center;"></div>
         </div>
       </div>
     </div>
@@ -348,7 +355,8 @@
         style="background-color: var(--cor-bloco-principal); border: 3px solid var(--cor-texto-borda); border-radius: 15px;">
         <div class="modal-body text-center" style="padding: 2rem;">
           <h1 class_style="font-size: 2.25rem;" id="modalBeneficiosTitulo">Editar Benefícios</h5>
-            <p class="mt-2" style="font-size: 1.75rem;" id="modalBeneficiosSubTitulo">Adicione ou retire Benefícios</p>
+            <p class="mt-2" style="font-size: 1.75rem;" id="modalBeneficiosSubTitulo">Adicione ou retire Benefícios
+            </p>
             <div class="form-floating my-3">
               <input type="text" class="form-control" id="inputEditarBeneficios" placeholder="Benefícios"
                 style="font-size: 1.5rem;">

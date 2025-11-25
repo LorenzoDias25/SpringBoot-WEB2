@@ -14,10 +14,15 @@ public class CargosRestController {
     private final Grade_cargosRepository repository;
 
     @GetMapping("/por-id/{id}")
-    public Grade_cargos getPorId(@PathVariable Integer id){
+    public Grade_cargos getPorId(@PathVariable Integer id) {
         return repository.findById(id).orElse(null);
     }
-    
+
+    @GetMapping("/por-nome/{nome}")
+    public Grade_cargos getPorNome(@PathVariable String nome) {
+        return repository.findByNomeContainingIgnoreCase(nome).orElse(null);
+    }
+
     public CargosRestController(Grade_cargosRepository repository) {
         this.repository = repository;
     }

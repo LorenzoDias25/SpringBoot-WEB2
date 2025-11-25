@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const camposRegistro = document.querySelectorAll(".registro-field");
   const btnEditarRegistro = document.getElementById("btnEditarRegistro");
   const btnSalvarRegistro = document.getElementById("btnSalvarRegistro");
+  const alertaRegistro = document.getElementById("alertaRegistro");
 
   // --- Seleção de Elementos (COMPLETA) ---
   const btnCadastrarTabela = document.getElementById("btnCadastrarTabela");
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const editEmail = document.getElementById("editEmail");
   const editCelular = document.getElementById("editCelular");
   const editCargo = document.getElementById("editCargo");
+  const editNascimento = document.getElementById("editNascimento");
   const btnSalvarEdicao = document.getElementById("btnSalvarEdicao");
 
   // Modal Cadastro
@@ -84,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cadEmail = document.getElementById("cadEmail");
   const cadCelular = document.getElementById("cadCelular");
   const cadCargo = document.getElementById("cadCargo");
+  const cadNascimento = document.getElementById("cadNascimento");
   const btnSalvarCadastro = document.getElementById("btnSalvarCadastro");
   // (Campos 'cadNome', 'cadCodigo', etc. são selecionados quando necessário)
 
@@ -120,8 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
         codigo: celulas[1].textContent.trim(),
         cpf: celulas[2].textContent.trim(),
         email: celulas[3].textContent.trim(),
-        celular: celulas[4].textContent.trim(),
-        cargo: celulas[5].textContent.trim(),
+        nascimento: celulas[4].textContent.trim(),
+        celular: celulas[5].textContent.trim(),
+        cargo: celulas[6].textContent.trim(),
       };
 
       await buscarEndereco(funcionarioSelecionado.enderecoId);
@@ -157,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alertaDesativar.classList.add("d-none");
   });
 
-  btnConfirmarDesativacao.addEventListener("click", function () {
+  btnConfirmarDesativacao.addEventListener("click", async function () {
     const codigoDigitado = inputConfirmarCodigo.value;
     const codigoCorreto = this.dataset.codigoCorreto;
 
@@ -166,7 +170,23 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    console.log(`DESATIVANDO FUNCIONÁRIO ID:`, funcionarioSelecionado.nome);
+    const dados = {
+      id_funcionario: funcionarioSelecionado.funcionarioId,
+      demitido: true,
+    };
+
+    let sucesso = await salvarRegistro(dados);
+
+    if (sucesso === false) {
+      mostrarAlerta(
+        "Erro ao desativar funcionário",
+        tipoAlert.DANGER,
+        alertaDesativar
+      );
+      return;
+    }
+
+    console.log(`DESATIVANDO FUNCIONÁRIO`, funcionarioSelecionado.nome);
     mostrarAlerta("Operação concluída", tipoAlert.SUCESS, alertaDesativar);
 
     resetarSelecao();
@@ -189,13 +209,70 @@ document.addEventListener("DOMContentLoaded", function () {
     btnSalvarRegistro.classList.remove("d-none");
   });
 
-  btnSalvarRegistro.addEventListener("click", function () {
-    console.log("Dados do registro salvos!");
+  btnSalvarRegistro.addEventListener("click", async function () {
+    if (!funcionarioSelecionado) return;
+
+    if (inputAdmissao.value == "") {
+      mostrarAlerta("Admissão em branco", tipoAlert.DANGER, alertaRegistro);
+      return;
+    } else if (!validarDataBR(inputAdmissao.value)) {
+      mostrarAlerta(
+        "Data de admissão inválida",
+        tipoAlert.DANGER,
+        alertaRegistro
+      );
+      return;
+    } else if (inputDemissao.value == "") {
+      mostrarAlerta("Demissão em branco", tipoAlert.DANGER, alertaRegistro);
+      return;
+    } else if (!validarDataBR(inputDemissao.value)) {
+      mostrarAlerta(
+        "Data de demissão inválida",
+        tipoAlert.DANGER,
+        alertaRegistro
+      );
+      return;
+    } else if (
+      !validarDataBMaiorIgualA(inputAdmissao.value, inputDemissao.value)
+    ) {
+      mostrarAlerta(
+        "Data de demissão menor que admissão",
+        tipoAlert.DANGER,
+        alertaRegistro
+      );
+      return;
+    }
+
+    const dados = {
+      id_funcionario: funcionarioSelecionado.funcionarioId,
+      data_admissao: formatarDataParaAPI(inputAdmissao.value),
+      data_demissao: formatarDataParaAPI(inputDemissao.value),
+      demitido: false,
+    };
+    mostrarAlerta("Carregando...", tipoAlert.INFO, alertaRegistro);
     camposRegistro.forEach((campo) => {
       campo.readOnly = true;
       campo.style.backgroundColor = "#EEEEEE";
     });
-    btnSalvarRegistro.classList.add("d-none");
+
+    let sucesso = await salvarRegistro(dados);
+
+    if (sucesso === false) {
+      mostrarAlerta(
+        "Erro ao salvar registro",
+        tipoAlert.DANGER,
+        alertaRegistro
+      );
+      return;
+    }
+
+    console.log("Dados do registro salvos", funcionarioSelecionado.nome);
+
+    mostrarAlerta("Operação concluída", tipoAlert.SUCESS, alertaRegistro);
+    setTimeout(() => {
+      btnSalvarRegistro.classList.add("d-none");
+      alertaRegistro.classList.add("d-none");
+    }, 1000);
   });
 
   // --- Lógica 3: Formulário de Endereço (Painel da Direita) ---
@@ -280,15 +357,19 @@ document.addEventListener("DOMContentLoaded", function () {
       editEmail.value = funcionarioSelecionado.email;
       editCelular.value = funcionarioSelecionado.celular;
       editCargo.value = funcionarioSelecionado.cargo;
+      editNascimento.value = funcionarioSelecionado.nascimento;
     }
   });
 
-  btnSalvarEdicao.addEventListener("click", function () {
+  btnSalvarEdicao.addEventListener("click", async function () {
     if (editNome.value == "") {
       mostrarAlerta("Nome em branco", tipoAlert.DANGER, alertaEditar);
       return;
     } else if (editCPF.value == "") {
       mostrarAlerta("CPF em branco", tipoAlert.DANGER, alertaEditar);
+      return;
+    } else if (!validarCPF(editCPF.value)) {
+      mostrarAlerta("CPF inválido", tipoAlert.DANGER, alertaEditar);
       return;
     } else if (editEmail.value == "") {
       mostrarAlerta("Email em branco", tipoAlert.DANGER, alertaEditar);
@@ -299,30 +380,54 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (editCargo.value == "") {
       mostrarAlerta("Cargo em branco", tipoAlert.DANGER, alertaEditar);
       return;
+    } else if (editNascimento.value == "") {
+      mostrarAlerta("Nascimento em branco", tipoAlert.DANGER, alertaEditar);
+      return;
+    } else if (!validarDataBR(editNascimento.value)) {
+      mostrarAlerta("Data nascimento inválida", tipoAlert.DANGER, alertaEditar);
+      return;
     }
 
-    const dadosEditados = {
-      id: funcionarioSelecionado.id,
+    const cargo = await buscarCargoPorNome(editCargo.value);
+
+    if (cargo === null) {
+      mostrarAlerta(
+        "Cargo não encontrado na base de dados",
+        tipoAlert.DANGER,
+        alertaEditar
+      );
+      return;
+    }
+
+    const dados = {
+      id: funcionarioSelecionado.funcionarioId,
       nome: editNome.value,
       cpf: editCPF.value,
       email: editEmail.value,
       celular: editCelular.value,
-      cargo: editCargo.value,
+      data_nascimento: formatarDataParaAPI(editNascimento.value),
+      id_cargo: cargo.id,
     };
 
-    console.clear();
-    console.log("--- ✅ Enviando (Modo EDIÇÃO) ---", dadosEditados);
-    bootstrap.Modal.getInstance(modalEditarFuncionario).hide();
+    let sucesso = await salvarFuncionario(dados);
 
-    // Atualiza a linha na tabela
-    const linhaAtiva = tabelaFuncionariosBody.querySelector(".table-active");
-    if (linhaAtiva) {
-      linhaAtiva.cells[0].textContent = dadosEditados.nome;
-      linhaAtiva.cells[2].textContent = dadosEditados.cpf;
-      linhaAtiva.cells[3].textContent = dadosEditados.email;
-      linhaAtiva.cells[5].textContent = dadosEditados.celular;
-      linhaAtiva.cells[6].textContent = dadosEditados.cargo;
+    if (sucesso === false) {
+      mostrarAlerta("Erro ao editar usuário", tipoAlert.DANGER, alertaEditar);
+      return;
     }
+
+    console.clear();
+    console.log("--- ✅ Enviando (Modo EDIÇÃO) ---", dados);
+
+    mostrarAlerta("Operação concluída", tipoAlert.SUCESS, alertaEditar);
+
+    resetarSelecao();
+    resetarRegistro();
+    resetarEndereco();
+    resetarBeneficios();
+    setTimeout(() => {
+      bootstrap.Modal.getInstance(modalEditarFuncionario).hide();
+    }, 500);
   });
 
   // --- Lógica 5: Modal de Cadastro (Separado) ---
@@ -334,17 +439,18 @@ document.addEventListener("DOMContentLoaded", function () {
     cadEmail.value = "";
     cadCelular.value = "";
     cadCargo.value = "";
+    cadNascimento.value = "";
   });
 
-  btnSalvarCadastro.addEventListener("click", function () {
+  btnSalvarCadastro.addEventListener("click", async function () {
     if (cadNome.value == "") {
       mostrarAlerta("Nome em branco", tipoAlert.DANGER, alertaCadastar);
       return;
-    } else if (cadCodigo.value == "") {
-      mostrarAlerta("Código em branco", tipoAlert.DANGER, alertaCadastar);
-      return;
     } else if (cadCPF.value == "") {
       mostrarAlerta("CPF em branco", tipoAlert.DANGER, alertaCadastar);
+      return;
+    } else if (!validarCPF(cadCPF.value)) {
+      mostrarAlerta("CPF inválido", tipoAlert.DANGER, alertaCadastar);
       return;
     } else if (cadEmail.value == "") {
       mostrarAlerta("Email em branco", tipoAlert.DANGER, alertaCadastar);
@@ -355,22 +461,71 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (cadCargo.value == "") {
       mostrarAlerta("Cargo em branco", tipoAlert.DANGER, alertaCadastar);
       return;
+    } else if (cadNascimento.value == "") {
+      mostrarAlerta("Nascimento em branco", tipoAlert.DANGER, alertaCadastar);
+      return;
+    } else if (!validarDataBR(cadNascimento.value)) {
+      mostrarAlerta(
+        "Data nascimento inválida",
+        tipoAlert.DANGER,
+        alertaCadastar
+      );
+      return;
     }
 
-    const dadosCadastro = {
-      nome: cadNome.value,
+    const cargo = await buscarCargoPorNome(cadCargo.value);
+
+    if (cargo === null) {
+      mostrarAlerta(
+        "Cargo não encontrado na base de dados",
+        tipoAlert.DANGER,
+        alertaCadastar
+      );
+      return;
+    }
+
+    const funcionario = await buscarFuncionarioPorCodigo(cadCodigo.value);
+    if (funcionario) {
+      mostrarAlerta(
+        "Código já está cadastrado",
+        tipoAlert.DANGER,
+        alertaCadastar
+      );
+      return;
+    }
+
+    const dados = {
+      id: null,
       codigo: cadCodigo.value,
+      nome: cadNome.value,
       cpf: cadCPF.value,
       email: cadEmail.value,
       celular: cadCelular.value,
-      cargo: cadCargo.value,
+      data_nascimento: formatarDataParaAPI(cadNascimento.value),
+      id_cargo: cargo.id,
     };
 
+    let sucesso = await salvarFuncionario(dados);
+
+    if (sucesso === false) {
+      mostrarAlerta(
+        "Erro ao cadastrar usuário",
+        tipoAlert.DANGER,
+        alertaCadastar
+      );
+      return;
+    }
+
     console.clear();
-    console.log("--- ✅ Enviando (Modo CADASTRO) ---", dadosCadastro);
-    bootstrap.Modal.getInstance(modalCadastrarFuncionario).hide();
-    // (Aqui você faria o 'fetch' POST para o Spring Boot e,
-    // na resposta, pegaria o novo funcionário e adicionaria na tabela)
+    console.log("--- ✅ Enviando (Modo CADASTRO) ---", dados);
+
+    resetarSelecao();
+    resetarRegistro();
+    resetarEndereco();
+    resetarBeneficios();
+    setTimeout(() => {
+      bootstrap.Modal.getInstance(modalCadastrarFuncionario).hide();
+    }, 500);
   });
 
   // --- Funcoes APIS ---
@@ -421,6 +576,23 @@ document.addEventListener("DOMContentLoaded", function () {
   async function buscarCargo(id) {
     try {
       const response = await fetch(`api/cargos/por-id/${id}`);
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar cargo:" + response.statusText);
+      }
+
+      const cargo = await response.json();
+
+      return cargo;
+    } catch (error) {
+      console.log("Erro ao buscar cargo:", error);
+      return null;
+    }
+  }
+
+  async function buscarCargoPorNome(nome) {
+    try {
+      const response = await fetch(`api/cargos/por-nome/${nome}`);
 
       if (!response.ok) {
         throw new Error("Erro ao buscar cargo:" + response.statusText);
@@ -593,6 +765,83 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  async function salvarFuncionario(dados) {
+    //Logica de decisao
+    let url;
+    let metodo;
+
+    if (dados.id) {
+      // Têm ID? Então é EDIÇÃO (PUT)
+      url = `/api/funcionarios/salvar/${dados.id}`;
+      metodo = "PUT";
+    } else {
+      // Não tem ID? Então é CADASTRO (POST)
+      url = "/api/funcionarios/salvar";
+      metodo = "POST";
+    }
+
+    // 2. Envia a requisição PUT para a API
+    try {
+      const response = await fetch(url, {
+        // A URL deve ter o ID do aluno
+        method: metodo, // O método HTTP para atualizar
+        headers: {
+          "Content-Type": "application/json", // Diz ao Spring que você está enviando JSON
+        },
+        body: JSON.stringify(dados), // Converte o objeto JS para uma string JSON
+      });
+
+      if (response.ok) {
+        carregarFuncionarios();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log("Erro na requisição:", error);
+      return false;
+    }
+  }
+
+  async function salvarRegistro(dados) {
+    try {
+      const response = await fetch(`/api/registro/salvar`, {
+        method: "PUT", // O método HTTP para atualizar
+        headers: {
+          "Content-Type": "application/json", // Diz ao Spring que você está enviando JSON
+        },
+        body: JSON.stringify(dados), // Converte o objeto JS para uma string JSON
+      });
+
+      if (response.ok) {
+        buscarRegistro(funcionarioSelecionado.funcionarioId);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log("Erro na requisição:", error);
+      return false;
+    }
+  }
+
+  async function buscarFuncionarioPorCodigo(codigo) {
+    try {
+      const response = await fetch(`/api/funcionarios/por-codigo/${codigo}`);
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar funcionario:" + response.statusText);
+      }
+
+      const funcionario = await response.json();
+
+      return funcionario;
+    } catch (error) {
+      console.log("Erro ao buscar funcionario:", error);
+      return null;
+    }
+  }
+
   // --- Funções Auxiliares (COMPLETAS) ---
   function mostrarAlerta(mensagem, tipo, modal) {
     modal.textContent = mensagem;
@@ -610,8 +859,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function resetarRegistro() {
-    inputAdmissao = "";
-    inputDemissao = "";
+    inputAdmissao.value = "";
+    inputDemissao.value = "";
   }
 
   function resetarEndereco() {
@@ -735,5 +984,31 @@ document.addEventListener("DOMContentLoaded", function () {
     // Converte "2005-03-10" para "10/03/2005"
     const [ano, mes, dia] = dataISO.split("-");
     return `${dia}/${mes}/${ano}`;
+  }
+
+  function validarDataBMaiorIgualA(dataAStr, dataBStr) {
+    // 1. Função auxiliar para converter 'dd/MM/yyyy' para objeto Date
+    function converterParaData(dataString) {
+      if (!dataString) return null;
+      const partes = dataString.split("/");
+      // Cria a data: new Date(ano, mes (0-11), dia)
+      // Zera as horas para garantir que comparamos apenas as datas
+      const data = new Date(partes[2], partes[1] - 1, partes[0]);
+      data.setHours(0, 0, 0, 0);
+      return data;
+    }
+
+    const dataA = converterParaData(dataAStr);
+    const dataB = converterParaData(dataBStr);
+
+    // Validação de segurança (caso as datas venham vazias ou inválidas)
+    if (!dataA || !dataB || isNaN(dataA.getTime()) || isNaN(dataB.getTime())) {
+      console.error("Datas inválidas fornecidas para comparação.");
+      return false;
+    }
+
+    // 2. A Comparação:
+    // Retorna TRUE se Data B for Maior (futuro) ou Igual à Data A
+    return dataB.getTime() >= dataA.getTime();
   }
 });

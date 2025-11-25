@@ -184,7 +184,7 @@ body {
 #modalEditarFuncionario .form-control,
 #modalCadastrarFuncionario .form-control,
 #modalDesativar .form-control,
-#modalEditarBeneficios .form-contro {
+#modalEditarBeneficios .form-control {
   font-family: "Patrick Hand", cursive;
   font-weight: bold;
   font-size: 1.5rem;
@@ -210,7 +210,10 @@ body {
 #modalDesativar .form-floating > .form-control:not(:placeholder-shown) ~ label {
   transform: scale(0.85) translateY(-0.8rem) translateX(0.15rem);
 }
-#modalEditarBeneficios .form-floating > .form-control:not(:placeholder-shown) ~ label {
+#modalEditarBeneficios
+  .form-floating
+  > .form-control:not(:placeholder-shown)
+  ~ label {
   transform: scale(0.85) translateY(-0.8rem) translateX(0.15rem);
 }
 #modalEditarFuncionario .form-floating > label,

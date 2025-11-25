@@ -1,5 +1,6 @@
 package com.example.Escola_WEB2.Model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Funcionarios {
     @JoinColumn(name = "id_cargo_fk")
     private Grade_cargos cargo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_fk")
     private Endereco endereco;
 

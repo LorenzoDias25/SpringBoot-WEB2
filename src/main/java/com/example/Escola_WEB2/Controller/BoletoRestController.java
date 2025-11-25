@@ -40,7 +40,7 @@ public class BoletoRestController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<Void> atualizarBoleto(@RequestBody BoletoUpdate dto) {
+    public ResponseEntity<Void> inserirBoleto(@RequestBody BoletoUpdate dto) {
 
         service.criarBoleto(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();

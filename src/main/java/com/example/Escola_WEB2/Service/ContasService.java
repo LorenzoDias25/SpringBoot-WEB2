@@ -4,6 +4,7 @@ import com.example.Escola_WEB2.DTO.ContasUpdate;
 import com.example.Escola_WEB2.Enums.Tipo_usuario;
 import com.example.Escola_WEB2.Model.Contas;
 import com.example.Escola_WEB2.Repository.ContasRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +27,9 @@ public class ContasService {
             conta.setTipoUsuario(Tipo_usuario.valueOf(dto.getTipo()));
         }
         if (dto.getSenha() != null) {
-            conta.setSenha(dto.getSenha());
+            conta.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         }
+        System.out.println("TESTE" + dto.isAtivo());
         conta.setAtivo(dto.isAtivo());
 
         repository.save(conta);
@@ -47,7 +49,7 @@ public class ContasService {
             conta.setTipoUsuario(Tipo_usuario.valueOf(dto.getTipo()));
         }
         if (dto.getSenha() != null) {
-            conta.setSenha(dto.getSenha());
+            conta.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         }
         conta.setAtivo(dto.isAtivo());
 

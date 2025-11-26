@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina de login</title>
+</head>
+
+<body>
+  <div class="container">
+    <form th:action="@{/login}" method="post">
+
+      <h2>Login Escolar</h2>
+
+      <div th:if="${param.error}" class="alert alert-danger">
+        Usuário ou senha inválidos! Verifique seus dados.
+      </div>
+
+      <div th:if="${param.logout}" class="alert alert-info">
+        Você saiu do sistema.
+      </div>
+
+      <div class="mb-3">
+        <label>Login</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label>Senha</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+  </div>
+</body>
+
+</html>

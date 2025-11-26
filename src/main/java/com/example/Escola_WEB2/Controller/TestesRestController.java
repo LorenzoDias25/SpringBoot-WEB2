@@ -15,6 +15,7 @@ import com.example.Escola_WEB2.Model.Matriculas_disciplinas;
 import com.example.Escola_WEB2.Model.Registro_funcionarios;
 import com.example.Escola_WEB2.Model.TipoEvento;
 import com.example.Escola_WEB2.Model.Turmas;
+import com.example.Escola_WEB2.Model.Usuario;
 import com.example.Escola_WEB2.Repository.AlunosRepository;
 import com.example.Escola_WEB2.Repository.Ano_letivoRepository;
 import com.example.Escola_WEB2.Repository.BoletoRepository;
@@ -30,6 +31,7 @@ import com.example.Escola_WEB2.Repository.Matriculas_disciplinasRepository;
 import com.example.Escola_WEB2.Repository.Registro_funcionariosRepository;
 import com.example.Escola_WEB2.Repository.Tipo_eventoRepository;
 import com.example.Escola_WEB2.Repository.TurmasRepository;
+import com.example.Escola_WEB2.Repository.UsuarioRepository;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +56,7 @@ public class TestesRestController {
     private final Registro_funcionariosRepository registro_funcionariosRepository;
     private final Tipo_eventoRepository tipo_eventoRepository;
     private final TurmasRepository turmasRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @GetMapping("/alunos")
     public List<Alunos> TesteAlunos() {
@@ -130,7 +133,12 @@ public class TestesRestController {
         return turmasRepository.findAll();
     }
 
-    public TestesRestController(AlunosRepository alunosRepository, Ano_letivoRepository ano_letivoRepository, BoletoRepository boletoRepository, ContasRepository contasRepository, DisciplinasRepository disciplinasRepository, EnderecoRepository enderecoRepository, EventosRepository eventosRepository, FuncionariosRepository funcionariosRepository, Grade_cargosRepository grade_cargosRepository, Grade_disciplinasRepository grade_disciplinasRepository, LocaisRepository locaisRepository, Matriculas_disciplinasRepository matriculas_disciplinasRepository, Registro_funcionariosRepository registro_funcionariosRepository, Tipo_eventoRepository tipo_eventoRepository, TurmasRepository turmasRepository) {
+    @GetMapping("/usuario")
+    public List<Usuario> TesteUsuario() {
+        return usuarioRepository.findAll();
+    }
+
+    public TestesRestController(AlunosRepository alunosRepository, Ano_letivoRepository ano_letivoRepository, BoletoRepository boletoRepository, ContasRepository contasRepository, DisciplinasRepository disciplinasRepository, EnderecoRepository enderecoRepository, EventosRepository eventosRepository, FuncionariosRepository funcionariosRepository, Grade_cargosRepository grade_cargosRepository, Grade_disciplinasRepository grade_disciplinasRepository, LocaisRepository locaisRepository, Matriculas_disciplinasRepository matriculas_disciplinasRepository, Registro_funcionariosRepository registro_funcionariosRepository, Tipo_eventoRepository tipo_eventoRepository, TurmasRepository turmasRepository, UsuarioRepository usuarioRepository) {
         this.alunosRepository = alunosRepository;
         this.ano_letivoRepository = ano_letivoRepository;
         this.boletoRepository = boletoRepository;
@@ -146,5 +154,7 @@ public class TestesRestController {
         this.registro_funcionariosRepository = registro_funcionariosRepository;
         this.tipo_eventoRepository = tipo_eventoRepository;
         this.turmasRepository = turmasRepository;
+        this.usuarioRepository = usuarioRepository;
     }
+
 }

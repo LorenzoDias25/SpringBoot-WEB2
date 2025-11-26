@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 </html>
 
@@ -37,7 +37,7 @@
             <li class="nav-item">
               <a class="nav-link" th:href="@{index}">Eventos</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADM', 'SECRETARIO')">
               <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
                 Secretaria
               </a>
@@ -48,7 +48,7 @@
                 <li><a class="dropdown-item" th:href="@{eventos}">Eventos</a></li>
               </ul>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" sec:authorize="hasRole('ADM')">
               <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
                 Adm
               </a>
@@ -58,7 +58,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{perfil}">Perfil</a>
+              <a class="nav-link" th:href="@{/logout}">Sair</a>
             </li>
           </ul>
         </div>

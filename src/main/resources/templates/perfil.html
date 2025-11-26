@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8" />
@@ -29,27 +29,7 @@
             <li class="nav-item">
               <a class="nav-link" th:href="@{index}">Eventos</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                Secretaria
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{alunos}">Alunos</a></li>
-                <li><a class="dropdown-item" th:href="@{disciplinas}">Disciplinas</a></li>
-                <li><a class="dropdown-item" th:href="@{turmas}">Turmas</a></li>
-                <li><a class="dropdown-item" th:href="@{eventos}">Eventos</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                Adm
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{contas}">Contas</a></li>
-                <li><a class="dropdown-item" th:href="@{funcionarios}">Funcionários</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasRole('ALUNO')">
               <a class="nav-link" th:href="@{perfil}">Perfil</a>
             </li>
           </ul>
@@ -58,19 +38,19 @@
     </nav>
     <section class="content-block text-center profile-section">
       <div class="profile-photo-circle">
-        <span>FOTO</span>
+        <img th:src="@{/assets/logo.png}" style="height: 75px; width: auto;" alt="Logo">
       </div>
 
-      <p class="mb-0" style="font-size: 1.2rem">Matricula</p>
-      <h3 style="font-size: 2.5rem; margin-bottom: 1.5rem">Nome completo</h3>
+      <h1 id="matriculaCampo" class="mb-0" style="font-size: 2.5rem">Matricula</h1>
+      <p id="nomeCompletoCampo" style="font-size: 3.0rem; margin-bottom: 1.5rem">Nome completo</p>
 
       <nav class="nav flex-column profile-links">
         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalAlterarSenha">
           Alterar senha
         </a>
-        <a class="nav-link" href="/Perfil/mensalidades.html">Mensalidades</a>
-        <a class="nav-link" href="/Perfil/historico.html">Histórico</a>
-        <a class="nav-link logout" href="#">Logout</a>
+        <a class="nav-link" th:href="@{mensalidades}">Mensalidades</a>
+        <a class="nav-link" th:href="@{historico}">Histórico</a>
+        <a class="nav-link logout" th:href="@{/logout}">Logout</a>
       </nav>
       <div class="modal fade" id="modalAlterarSenha" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">

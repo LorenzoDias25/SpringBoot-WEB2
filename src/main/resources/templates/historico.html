@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8" />
@@ -31,29 +31,10 @@
             <li class="nav-item">
               <a class="nav-link" th:href="@{index}">Eventos</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                Secretaria
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{alunos}">Alunos</a></li>
-                <li><a class="dropdown-item" th:href="@{disciplinas}">Disciplinas</a></li>
-                <li><a class="dropdown-item" th:href="@{turmas}">Turmas</a></li>
-                <li><a class="dropdown-item" th:href="@{eventos}">Eventos</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                Adm
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{contas}">Contas</a></li>
-                <li><a class="dropdown-item" th:href="@{funcionarios}">Funcionários</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasRole('ALUNO')">
               <a class="nav-link" th:href="@{perfil}">Perfil</a>
             </li>
+            
           </ul>
         </div>
       </div>

@@ -348,9 +348,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (contaSelecionada.status == "Desativado") {
-        dados.status = false;
+        dados.ativo = false;
       } else {
-        dados.status = true;
+        dados.ativo = true;
       }
 
       let sucesso = await salvarConta(dados);
@@ -627,7 +627,6 @@ document.addEventListener("DOMContentLoaded", function () {
   async function renderizarTabelaContas(contas) {
     tabelaContasBody.innerHTML = "";
 
-    
     for (const conta of contas) {
       const linha = document.createElement("tr");
 

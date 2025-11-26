@@ -63,6 +63,26 @@ public class BaseController {
         return "funcionarios";
     }
 
+    @GetMapping("/login")
+    public String LoginPage() {
+        return "login";
+    }
+
+    @GetMapping("/perfil")
+    public String PerfilPage() {
+        return "perfil";
+    }
+
+    @GetMapping("/historico")
+    public String HistoricoPage() {
+        return "historico";
+    }
+
+    @GetMapping("/mensalidades")
+    public String MensalidadesPage() {
+        return "mensalidades";
+    }
+
     public BaseController(EventosRepository eventosRepository) {
         this.eventosRepository = eventosRepository;
     }

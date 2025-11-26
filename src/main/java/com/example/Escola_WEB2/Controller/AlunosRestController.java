@@ -36,6 +36,7 @@ public class AlunosRestController {
         return alunosRepository.findByMatricula(matricula);
     }
 
+
     @GetMapping("/pesquisar")
     public List<Alunos> pesquisarAlunos(
             @RequestParam(value = "termo", defaultValue = "") String termo,

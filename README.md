@@ -1,5 +1,3 @@
-Com base na análise dos arquivos fornecidos, aqui está uma descrição detalhada do projeto em formato Markdown.
-
 ---
 
 # Projeto: Sistema de Gestão Escolar (Escola_WEB2)

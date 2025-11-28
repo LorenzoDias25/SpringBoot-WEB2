@@ -28,9 +28,9 @@ public class Boleto {
 
     private Double valor;
 
-    private LocalDate data_emissao;
+    private LocalDate dataEmissao;
 
-    private LocalDate data_vencimento;
+    private LocalDate dataVencimento;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -39,12 +39,12 @@ public class Boleto {
     public Boleto() {
     }
 
-    public Boleto(Integer id_boleto, Alunos alunos, Double valor, LocalDate data_emissao, LocalDate data_vencimento, Status_boleto status) {
+    public Boleto(Integer id_boleto, Alunos alunos, Double valor, LocalDate dataEmissao, LocalDate dataVencimento, Status_boleto status) {
         this.id_boleto = id_boleto;
         this.alunos = alunos;
         this.valor = valor;
-        this.data_emissao = data_emissao;
-        this.data_vencimento = data_vencimento;
+        this.dataEmissao = dataEmissao;
+        this.dataVencimento = dataVencimento;
         this.status = status;
     }
 
@@ -72,20 +72,20 @@ public class Boleto {
         this.valor = valor;
     }
 
-    public LocalDate getData_emissao() {
-        return data_emissao;
+    public LocalDate getDataEmissao() {
+        return dataEmissao;
     }
 
-    public void setData_emissao(LocalDate data_emissao) {
-        this.data_emissao = data_emissao;
+    public void setDataEmissao(LocalDate dataEmissao) {
+        this.dataEmissao = dataEmissao;
     }
 
-    public LocalDate getData_vencimento() {
-        return data_vencimento;
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
     }
 
-    public void setData_vencimento(LocalDate data_vencimento) {
-        this.data_vencimento = data_vencimento;
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
     }
 
     public Status_boleto getStatus() {

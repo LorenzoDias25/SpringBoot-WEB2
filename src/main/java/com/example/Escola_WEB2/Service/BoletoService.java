@@ -24,8 +24,8 @@ public class BoletoService {
 
         boletoExistente.setStatus(Status_boleto.valueOf(dto.getStatus()));
         boletoExistente.setValor(dto.getValor());
-        boletoExistente.setData_emissao(dto.getData_emissao());
-        boletoExistente.setData_vencimento(dto.getData_vencimento());
+        boletoExistente.setDataEmissao(dto.getData_emissao());
+        boletoExistente.setDataVencimento(dto.getData_vencimento());
 
         repository.save(boletoExistente);
     }
@@ -38,8 +38,8 @@ public class BoletoService {
 
         boleto.setAlunos(aluno);
 
-        boleto.setData_emissao(dto.getData_emissao());
-        boleto.setData_vencimento(dto.getData_vencimento());
+        boleto.setDataEmissao(dto.getData_emissao());
+        boleto.setDataVencimento(dto.getData_vencimento());
         boleto.setValor(dto.getValor());
         boleto.setStatus(Status_boleto.valueOf(dto.getStatus()));
 

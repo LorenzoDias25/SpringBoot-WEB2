@@ -41,6 +41,7 @@ public class ContasRestController {
                 ? Sort.by("email").descending()
                 : Sort.by("email").ascending();
 
+
         // 2. Decide qual método de busca usar (baseado no "Pesquisar por:")
         switch (tipo) {
             case "email":

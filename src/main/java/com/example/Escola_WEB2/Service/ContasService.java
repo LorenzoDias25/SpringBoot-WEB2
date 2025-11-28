@@ -29,7 +29,6 @@ public class ContasService {
         if (dto.getSenha() != null) {
             conta.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         }
-        System.out.println("TESTE" + dto.isAtivo());
         conta.setAtivo(dto.isAtivo());
 
         repository.save(conta);

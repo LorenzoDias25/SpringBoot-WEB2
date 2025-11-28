@@ -975,8 +975,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 7. Adiciona os dados do JSON em células <td>
         linha.innerHTML = `
-                <td>${formatarData(mensalidade.data_emissao)}</td>
-                <td>${formatarData(mensalidade.data_vencimento)}</td>
+                <td>${formatarData(mensalidade.dataEmissao)}</td>
+                <td>${formatarData(mensalidade.dataVencimento)}</td>
                 <td>${mensalidade.valor}</td>
                 <td>${mensalidade.status}</td>
             `;

@@ -31,22 +31,22 @@ public class Matriculas_disciplinas {
 
     private String disciplinaCodigo;
 
-    private int nota_final;
+    private int notaFinal;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status_disciplina status_disciplina;
+    private Status_disciplina statusDisciplina;
 
     public Matriculas_disciplinas() {
     }
 
-    public Matriculas_disciplinas(Integer id_matricula, Alunos alunos, Grade_disciplinas gradeDisciplinas, String disciplinaCodigo, int nota_final, Status_disciplina status_disciplina) {
+    public Matriculas_disciplinas(Integer id_matricula, Alunos alunos, Grade_disciplinas gradeDisciplinas, String disciplinaCodigo, int notaFinal, Status_disciplina statusDisciplina) {
         this.id_matricula = id_matricula;
         this.alunos = alunos;
         this.gradeDisciplinas = gradeDisciplinas;
         this.disciplinaCodigo = disciplinaCodigo;
-        this.nota_final = nota_final;
-        this.status_disciplina = status_disciplina;
+        this.notaFinal = notaFinal;
+        this.statusDisciplina = statusDisciplina;
     }
 
     public Integer getId_matricula() {
@@ -81,20 +81,20 @@ public class Matriculas_disciplinas {
         this.disciplinaCodigo = disciplinaCodigo;
     }
 
-    public int getNota_final() {
-        return nota_final;
+    public int getNotaFinal() {
+        return notaFinal;
     }
 
-    public void setNota_final(int nota_final) {
-        this.nota_final = nota_final;
+    public void setNotaFinal(int notaFinal) {
+        this.notaFinal = notaFinal;
     }
 
-    public Status_disciplina getStatus_disciplina() {
-        return status_disciplina;
+    public Status_disciplina getStatusDisciplina() {
+        return statusDisciplina;
     }
 
-    public void setStatus_disciplina(Status_disciplina status_disciplina) {
-        this.status_disciplina = status_disciplina;
+    public void setStatusDisciplina(Status_disciplina statusDisciplina) {
+        this.statusDisciplina = statusDisciplina;
     }
 
 }

@@ -934,8 +934,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // 7. Adiciona os dados do JSON em células <td>
         linha.innerHTML = `
                 <td>${matricula.gradeDisciplinas.disciplinas.nome}</td>
-                <td>${matricula.nota_final}</td>
-                <td>${matricula.status_disciplina}</td>
+                <td>${matricula.notaFinal}</td>
+                <td>${matricula.statusDisciplina}</td>
             `;
 
         // 8. Adiciona a linha preenchida ao corpo da tabela

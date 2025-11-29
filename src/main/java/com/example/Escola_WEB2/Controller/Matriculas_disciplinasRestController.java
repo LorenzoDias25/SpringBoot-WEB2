@@ -1,6 +1,7 @@
 package com.example.Escola_WEB2.Controller;
 
 import com.example.Escola_WEB2.DTO.MatriculasUpdate;
+import com.example.Escola_WEB2.Enums.Status_disciplina;
 import com.example.Escola_WEB2.Model.Matriculas_disciplinas;
 import com.example.Escola_WEB2.Repository.Matriculas_disciplinasRepository;
 import com.example.Escola_WEB2.Service.MatriculasService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,6 +34,11 @@ public class Matriculas_disciplinasRestController {
         return matriculas_disciplinasRepository.findByAlunosId(alunosId);
     }
 
+    @GetMapping("/por-matricula-aluno/{matricula}")
+    public List<Matriculas_disciplinas> getPorAlunoMatricula(@PathVariable String matricula) {
+        return matriculas_disciplinasRepository.findByAlunosMatricula(matricula);
+    }
+
     @GetMapping("/por-disciplina/{codigo}")
     public List<Matriculas_disciplinas> getPorDisciplina(@PathVariable String codigo) {
         return matriculas_disciplinasRepository.findByDisciplinaCodigo(codigo);
@@ -40,6 +47,27 @@ public class Matriculas_disciplinasRestController {
     @GetMapping("/por-turma/{codigo}")
     public List<Matriculas_disciplinas> getPorTurma(@PathVariable String codigo) {
         return matriculas_disciplinasRepository.findByGradeDisciplinasTurmasCodigo(codigo);
+    }
+
+    @GetMapping("/pesquisar")
+    public List<Matriculas_disciplinas> pesquisarBoletos(
+            @RequestParam(value = "termo", defaultValue = "") String termo,
+            @RequestParam(value = "tipo", defaultValue = "") String tipo,
+            @RequestParam(value = "matricula", defaultValue = "") String matricula) {
+
+        // 2. Decide qual método de busca usar (baseado no "Pesquisar por:")
+        switch (tipo) {
+            case "turma":
+                return matriculas_disciplinasRepository.findByGradeDisciplinasTurmasCodigoContainingIgnoreCaseAndAlunosMatricula(termo, matricula);
+            case "semestre":
+                return matriculas_disciplinasRepository.findByGradeDisciplinasTurmasSemestreAndAlunosMatricula(Double.parseDouble(termo), matricula);
+            case "disciplina":
+                return matriculas_disciplinasRepository.findByGradeDisciplinasDisciplinasNomeContainingIgnoreCaseAndAlunosMatricula(termo, matricula);
+            case "nota":
+                return matriculas_disciplinasRepository.findByNotaFinalAndAlunosMatricula(Integer.parseInt(termo), matricula);
+            default:
+                return matriculas_disciplinasRepository.findByStatusDisciplinaAndAlunosMatricula(Status_disciplina.valueOf(termo), matricula);
+        }
     }
 
     @PutMapping("/salvar")

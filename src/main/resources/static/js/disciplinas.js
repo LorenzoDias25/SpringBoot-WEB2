@@ -671,8 +671,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // 7. Adiciona os dados do JSON em células <td>
         linha.innerHTML = `
                 <td>${matricula.alunos.nome}</td>
-                <td>${matricula.nota_final}</td>
-                <td>${matricula.status_disciplina}</td>
+                <td>${matricula.notaFinal}</td>
+                <td>${matricula.statusDisciplina}</td>
             `;
 
         // 8. Adiciona a linha preenchida ao corpo da tabela
@@ -701,8 +701,8 @@ document.addEventListener("DOMContentLoaded", function () {
       matriculas.forEach((matricula) => {
         const alunoId = matricula.alunos.id;
         const alunoNome = matricula.alunos.nome;
-        const notaFinal = matricula.nota_final;
-        const statusDisciplina = matricula.status_disciplina;
+        const notaFinal = matricula.notaFinal;
+        const statusDisciplina = matricula.statusDisciplina;
 
         htmlDropdown += `
                   <li>

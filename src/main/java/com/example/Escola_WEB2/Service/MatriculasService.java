@@ -25,11 +25,11 @@ public class MatriculasService {
                 .orElseThrow(() -> new RuntimeException("Matricula nao encontrada"));
 
         if (dto.getStatus() != null) {
-            matriculaExistente.setStatus_disciplina(Status_disciplina.valueOf(dto.getStatus()));
+            matriculaExistente.setStatusDisciplina(Status_disciplina.valueOf(dto.getStatus()));
         }
 
         if (dto.getNota_final() != null) {
-            matriculaExistente.setNota_final(dto.getNota_final());
+            matriculaExistente.setNotaFinal(dto.getNota_final());
         }
 
         repository.save(matriculaExistente);
@@ -46,8 +46,8 @@ public class MatriculasService {
 //        matricula.setAlunos(aluno);
 //        matricula.setGrade_disciplinas(grade);
 //        matricula.setDisciplinaCodigo(dto.getCodigo());
-        matricula.setNota_final(dto.getNota_final());
-        matricula.setStatus_disciplina(Status_disciplina.valueOf(dto.getStatus()));
+        matricula.setNotaFinal(dto.getNota_final());
+        matricula.setStatusDisciplina(Status_disciplina.valueOf(dto.getStatus()));
 
         repository.save(matricula);
     }
@@ -63,8 +63,8 @@ public class MatriculasService {
         matricula.setAlunos(aluno);
         matricula.setGradeDisciplinas(grade);
         matricula.setDisciplinaCodigo(dto.getCodigo());
-        matricula.setNota_final(dto.getNota_final());
-        matricula.setStatus_disciplina(Status_disciplina.valueOf(dto.getStatus()));
+        matricula.setNotaFinal(dto.getNota_final());
+        matricula.setStatusDisciplina(Status_disciplina.valueOf(dto.getStatus()));
 
         repository.save(matricula);
 
